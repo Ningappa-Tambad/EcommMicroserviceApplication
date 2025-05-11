@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    @Query("SELECT p FROM products p WHERE p.name LIKE %?1% and p.stockQuantity>10 AND p.active=true AND p.price>0 AND LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%'))")
+    @Query("SELECT p FROM products p WHERE p.name LIKE %?1% and p.stockQuantity>0 AND p.active=true AND p.price>0 AND LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%'))")
     List<Product> findByNameContainingIgnoreCase(@Param("name") String name);
     // Implement create, update, replace and delete methods
 

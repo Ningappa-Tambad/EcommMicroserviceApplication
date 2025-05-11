@@ -22,7 +22,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private long id;
+    private long productid;
     private String name;
     private String description;
     private BigDecimal price;
@@ -37,11 +37,11 @@ public class Product {
     private String updatedAt;
 
     public long getId() {
-        return id;
+        return productid;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.productid = id;
     }
 
     public String getName() {
