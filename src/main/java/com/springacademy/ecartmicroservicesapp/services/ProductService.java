@@ -7,6 +7,10 @@ import com.springacademy.ecartmicroservicesapp.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class ProductService {
@@ -51,4 +55,75 @@ public class ProductService {
     }
 
 
+    public Optional<ProductResponse> updateProduct(Long id, ProductRequest productRequest) {
+
+        // Logic to update a product
+      return productRepository.findById(id)
+                .map(existingProduct ->
+                {
+                 convertProductRequestToProduct(existingProduct, productRequest);
+                    Product savedProduct = productRepository.save(existingProduct);
+                    return mapToProductResponse(savedProduct);
+
+                });
+    }
+
+    public Optional<ProductResponse> fetchSingleProduct(Long id) {
+
+        // Logic to fetch a single product by ID
+        return productRepository.findById(id)
+                .map(product -> {
+                    ProductResponse productResponse = new ProductResponse();
+                    productResponse.setId(product.getId());
+                    productResponse.setName(product.getName());
+                    productResponse.setDescription(product.getDescription());
+                    productResponse.setPrice(product.getPrice());
+                    productResponse.setStockQuantity(product.getStockQuantity());
+                    productResponse.setCategory(product.getCategory());
+                    productResponse.setImageUrl(product.getImageUrl());
+                    productResponse.setActive(product.getActive());
+                    return Optional.of(productResponse);
+                })
+                .orElse(Optional.empty());
+    }
+
+    public List<ProductResponse> fetchAllProducts() {
+        // Logic to fetch all products
+        List<Product> products = productRepository.findAll();
+        return products.stream()
+                .map(product -> {
+                    ProductResponse productResponse = new ProductResponse();
+                    productResponse.setId(product.getId());
+                    productResponse.setName(product.getName());
+                    productResponse.setDescription(product.getDescription());
+                    productResponse.setPrice(product.getPrice());
+                    productResponse.setStockQuantity(product.getStockQuantity());
+                    productResponse.setCategory(product.getCategory());
+                    productResponse.setImageUrl(product.getImageUrl());
+                    productResponse.setActive(product.getActive());
+                    return productResponse;
+                })
+                .toList();
+    }
+
+    public void deleteProductById(Long id) {
+
+        // Logic to delete a product by ID
+        productRepository.deleteById(id);
+    }
+
+    public void deleteAllProducts() {
+
+        // Logic to delete all products
+        productRepository.deleteAll();
+    }
+
+    public List<ProductResponse> searchProducts(String name)
+    {
+        // Logic to search products by name
+        List<Product> products = productRepository.findByNameContainingIgnoreCase(name);
+        return products.stream()
+                .map(this::mapToProductResponse)
+                .collect(Collectors.toList());
+    }
 }
