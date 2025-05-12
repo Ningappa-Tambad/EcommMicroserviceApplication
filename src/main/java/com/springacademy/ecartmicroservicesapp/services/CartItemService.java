@@ -40,7 +40,7 @@ public class CartItemService {
         Product product=productOpt.get();
         if(product.getStockQuantity()<= request.getQuantity())
         {
-            throw new RuntimeException("Product is out of stock");
+            throw new RuntimeException("Product out of stock");
         }
         if(!userRepository.existsById(Long.parseLong(userId)))
         {
@@ -76,6 +76,6 @@ public class CartItemService {
             cartItemRepository.save(cartItem);
         }
         // Update the product stock quantity
-          return true;
+   return true;
     }
 }
