@@ -13,7 +13,12 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
     // For example, to find cart items by user ID or product ID
 
 
-  //Test
 
     CartItem findByUserAndProduct(User user, Product product);
+
+    void deleteByUserAndProduct(User user, Product product);
+
+    List<CartItem> findByUser(User user);
+
+    void deleteByUser(User user);
 }
