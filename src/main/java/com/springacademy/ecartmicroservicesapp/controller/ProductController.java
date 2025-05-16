@@ -13,12 +13,11 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/products")
 public class ProductController
 {
 
-    private ProductService productService;
+    private final ProductService productService;
 
     public ProductController(ProductService productService)
     {
@@ -32,7 +31,7 @@ public class ProductController
         // productService.createProduct(productRequest);
 
         // Return a response indicating success
-        ProductResponse productResponse = productService.CreateProduct(productRequest);
+         ProductResponse productResponse = productService.CreateProduct(productRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(productResponse);
     }
 
