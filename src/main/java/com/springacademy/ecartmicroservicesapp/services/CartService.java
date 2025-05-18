@@ -7,6 +7,7 @@ import com.springacademy.ecartmicroservicesapp.model.User;
 import com.springacademy.ecartmicroservicesapp.repository.CartItemRepository;
 import com.springacademy.ecartmicroservicesapp.repository.ProductRepository;
 import com.springacademy.ecartmicroservicesapp.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,7 @@ public class CartService {
     private final UserRepository userRepository;
     private final CartItemRepository cartItemRepository;
 
+    @Autowired
     public CartService(ProductRepository productRepository, UserRepository userRepository, CartItemRepository cartItemRepository) {
         this.productRepository = productRepository;
         this.userRepository = userRepository;

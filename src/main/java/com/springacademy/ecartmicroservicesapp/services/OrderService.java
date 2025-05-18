@@ -8,6 +8,7 @@ import com.springacademy.ecartmicroservicesapp.repository.OrderRepository;
 import com.springacademy.ecartmicroservicesapp.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -18,14 +19,14 @@ import java.util.stream.Collectors;
 
 
 @Service
-@RequiredArgsConstructor
 public class OrderService {
 
 
-    private  CartService cartService;
-    private  UserRepository userRepository;
-    private  OrderRepository orderRepository;
+    private final CartService cartService;
+    private  final UserRepository userRepository;
+    private  final OrderRepository orderRepository;
 
+    @Autowired
     public OrderService(CartService cartService, UserRepository userRepository, OrderRepository orderRepository) {
         this.cartService = cartService;
         this.userRepository = userRepository;
